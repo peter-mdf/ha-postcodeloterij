@@ -1,6 +1,6 @@
 # Postcodeloterij — Home Assistant Integration
 
-[![Release](https://img.shields.io/github/v/release/peternijssen/ha-postcodeloterij.svg)](https://github.com/peternijssen/ha-postcodeloterij/releases)
+[![Release](https://img.shields.io/github/v/release/peter-mdf/ha-postcodeloterij.svg)](https://github.com/peter-mdf/ha-postcodeloterij/releases)
 [![HACS](https://img.shields.io/badge/HACS-Default-41BDF5.svg)](https://github.com/hacs/integration)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -38,7 +38,7 @@ no custom repository needed.
 2. Select it and click **Download**
 3. Restart Home Assistant
 
-[![Open your Home Assistant instance and open this repository inside HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=peternijssen&repository=ha-postcodeloterij&category=integration)
+[![Open your Home Assistant instance and open this repository inside HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=peter-mdf&repository=ha-postcodeloterij&category=integration)
 
 ### Manual
 

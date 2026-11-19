@@ -1,15 +1,15 @@
 """Coordinator for the Postcodeloterij integration."""
+
 from __future__ import annotations
 
+from dataclasses import dataclass, field
+from datetime import UTC, datetime, timedelta
 import html as html_lib
 import logging
 import re
-from dataclasses import dataclass, field
-from datetime import datetime, timedelta, timezone
 from typing import TYPE_CHECKING
 
 import aiohttp
-
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
@@ -40,6 +40,8 @@ def _parse_content(content: str | None) -> tuple[str | None, str | None]:
 
 @dataclass
 class PostcodeloterijData:
+    """Prize data for one postcode and period."""
+
     prize_count: int = 0
     prizes: list[str] = field(default_factory=list)
     period: str = ""
@@ -51,9 +53,8 @@ class PostcodeloterijData:
 class PostcodeloterijCoordinator(DataUpdateCoordinator[PostcodeloterijData]):
     """Coordinator that polls the Postcodeloterij API on a fixed schedule."""
 
-    def __init__(
-        self, hass: HomeAssistant, entry: PostcodeloterijConfigEntry
-    ) -> None:
+    def __init__(self, hass: HomeAssistant, entry: PostcodeloterijConfigEntry) -> None:
+        """Initialise the coordinator for the entry's postcode."""
         postcode: str = entry.data[CONF_POSTCODE]
         super().__init__(
             hass,
@@ -101,9 +102,7 @@ class PostcodeloterijCoordinator(DataUpdateCoordinator[PostcodeloterijData]):
         # enrichedData carries the clean prize title; wonPrizes.description
         # appends a lottery-type suffix (e.g. "Pizzaprijs PL") that is
         # not useful to end users.
-        prizes = [
-            e.get("prizeTitle", "") for e in enriched
-        ] or [
+        prizes = [e.get("prizeTitle", "") for e in enriched] or [
             p.get("description", "") for p in data.get("wonPrizes", [])
         ]
 
@@ -116,7 +115,7 @@ class PostcodeloterijCoordinator(DataUpdateCoordinator[PostcodeloterijData]):
             data.get("prizeCount", 0),
         )
 
-        self.last_success_time = datetime.now(timezone.utc)
+        self.last_success_time = datetime.now(UTC)
         return PostcodeloterijData(
             prize_count=data.get("prizeCount", 0),
             prizes=prizes,

@@ -60,6 +60,10 @@ re-propose these as improvements:
   setup/unload (`test_init.py` — successful setup+unload plus the
   first-refresh-failure → `SETUP_RETRY` path) — above 95% required for
   silver, current 97%.
+- **CI lint/type gates** (`.github/workflows/validate.yml`): ruff 0.17.0 with
+  `ruff.toml` (Home Assistant core's ruleset, copied from the carrier suite),
+  `ruff format --check`, and mypy 2.4.0 on Python 3.13. Test dependencies live
+  in `requirements-dev.txt`.
 - `_attr_attribution = "Data provided by Postcodeloterij"` on the sensors
 - **`has_entity_name = True`** on every sensor, with `translation_key`
   routing names through `strings.json` + the language files, and icons in
@@ -118,5 +122,7 @@ python -m pytest tests/ --cov=custom_components.postcodeloterij
 ```
 
 Coverage must stay **above 95%** (the silver `test-coverage` rule on
-developers.home-assistant.io). Current coverage is 96%. Run before
-committing.
+developers.home-assistant.io). Current coverage is 97%. Run before
+committing, together with `ruff check .`, `ruff format --check .` (ruff 0.17.0 —
+older versions don't know the ruleset) and
+`mypy custom_components/postcodeloterij --ignore-missing-imports` (Python 3.13).

@@ -1,8 +1,13 @@
 """Tests for the Postcodeloterij sensor."""
+
+from datetime import UTC, datetime
 from unittest.mock import MagicMock
 
 from custom_components.postcodeloterij.coordinator import PostcodeloterijData
-from custom_components.postcodeloterij.sensor import PostcodeloterijSensor
+from custom_components.postcodeloterij.sensor import (
+    PostcodeloterijLastUpdateSensor,
+    PostcodeloterijSensor,
+)
 
 
 def _make_entry(postcode: str = "1234AB") -> MagicMock:
@@ -68,19 +73,13 @@ def test_sensor_uses_postcode_as_unique_id_and_device_name():
 
 
 def test_last_update_sensor_reports_coordinator_timestamp():
-    from datetime import datetime, timezone
-
-    from custom_components.postcodeloterij.sensor import (
-        PostcodeloterijLastUpdateSensor,
-    )
-
     coordinator = _make_coordinator(None)
     coordinator.last_success_time = None
     sensor = PostcodeloterijLastUpdateSensor(coordinator, _make_entry("5678CD"))
     assert sensor.unique_id == "5678CD_last_update"
     assert sensor.native_value is None
 
-    stamp = datetime(2026, 7, 1, 12, 0, tzinfo=timezone.utc)
+    stamp = datetime(2026, 7, 1, 12, 0, tzinfo=UTC)
     coordinator.last_success_time = stamp
     assert sensor.native_value == stamp
     assert sensor.device_info["name"] == "Postcodeloterij 5678CD"

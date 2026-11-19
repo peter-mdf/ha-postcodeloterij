@@ -1,5 +1,4 @@
 """Unit tests for the _parse_content helper in coordinator.py."""
-import pytest
 
 from custom_components.postcodeloterij.coordinator import _parse_content
 
@@ -20,7 +19,7 @@ def test_plain_text_no_link():
 
 def test_anchor_text_is_stripped():
     content = '<p>Win een auto <a href="https://example.com">Meer info</a></p>'
-    description, url = _parse_content(content)
+    description, _url = _parse_content(content)
     assert "Meer info" not in description
     assert "Win een auto" in description
 

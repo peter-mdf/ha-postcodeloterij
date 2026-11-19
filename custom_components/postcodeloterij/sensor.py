@@ -1,8 +1,9 @@
 """Sensor platform for the Postcodeloterij integration."""
+
 from __future__ import annotations
 
-import logging
 from datetime import datetime
+import logging
 from typing import Any
 
 from homeassistant.components.sensor import (
@@ -37,10 +38,12 @@ async def async_setup_entry(
     # forwarded, so ConfigEntryNotReady is raised from the entry setup rather
     # than (too late) from this forwarded platform.
     coordinator = entry.runtime_data
-    async_add_entities([
-        PostcodeloterijSensor(coordinator, entry),
-        PostcodeloterijLastUpdateSensor(coordinator, entry),
-    ])
+    async_add_entities(
+        [
+            PostcodeloterijSensor(coordinator, entry),
+            PostcodeloterijLastUpdateSensor(coordinator, entry),
+        ]
+    )
 
 
 def _build_device_info(postcode: str) -> DeviceInfo:
@@ -69,6 +72,7 @@ class PostcodeloterijSensor(
         coordinator: PostcodeloterijCoordinator,
         entry: PostcodeloterijConfigEntry,
     ) -> None:
+        """Initialise the sensor."""
         super().__init__(coordinator)
         postcode: str = entry.data[CONF_POSTCODE]
 
@@ -81,12 +85,14 @@ class PostcodeloterijSensor(
 
     @property
     def native_value(self) -> int | None:
+        """Return the number of prizes won."""
         if self._data is None:
             return None
         return self._data.prize_count
 
     @property
     def extra_state_attributes(self) -> dict[str, Any]:
+        """Return prize titles, period, image and description."""
         if self._data is None:
             return {}
         return {
@@ -119,6 +125,7 @@ class PostcodeloterijLastUpdateSensor(
         coordinator: PostcodeloterijCoordinator,
         entry: PostcodeloterijConfigEntry,
     ) -> None:
+        """Initialise the sensor."""
         super().__init__(coordinator)
         postcode: str = entry.data[CONF_POSTCODE]
         self._attr_unique_id = f"{postcode}_last_update"

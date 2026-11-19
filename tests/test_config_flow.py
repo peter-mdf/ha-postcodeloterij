@@ -1,11 +1,12 @@
 """Tests for the Postcodeloterij config flow."""
+
 from unittest.mock import AsyncMock, patch
 
 import aiohttp
-import pytest
-
 from homeassistant.config_entries import SOURCE_USER
 from homeassistant.data_entry_flow import FlowResultType
+import pytest
+from pytest_homeassistant_custom_component.common import MockConfigEntry
 
 from custom_components.postcodeloterij.const import CONF_POSTCODE, DOMAIN
 
@@ -73,8 +74,6 @@ async def test_user_flow_cannot_connect(hass):
 @pytest.mark.asyncio
 async def test_user_flow_aborts_on_duplicate_postcode(hass):
     """Configuring the same postcode twice aborts the second flow."""
-    from pytest_homeassistant_custom_component.common import MockConfigEntry
-
     MockConfigEntry(
         domain=DOMAIN,
         unique_id="1234AB",

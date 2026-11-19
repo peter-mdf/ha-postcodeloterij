@@ -1,4 +1,5 @@
 """Tests for the Postcodeloterij diagnostics handler."""
+
 from unittest.mock import MagicMock
 
 import pytest
@@ -9,7 +10,9 @@ from custom_components.postcodeloterij.diagnostics import (
 )
 
 
-def _entry(data: PostcodeloterijData | None, *, last_update_success: bool = True) -> MagicMock:
+def _entry(
+    data: PostcodeloterijData | None, *, last_update_success: bool = True
+) -> MagicMock:
     coordinator = MagicMock()
     coordinator.data = data
     coordinator.last_update_success = last_update_success

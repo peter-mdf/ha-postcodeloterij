@@ -1,15 +1,15 @@
 """Config flow for the Postcodeloterij integration."""
+
 from __future__ import annotations
 
-import re
 from datetime import datetime
+import re
 from typing import Any
 
 import aiohttp
-import voluptuous as vol
-
 from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
+import voluptuous as vol
 
 from .const import API_HEADERS, API_URL, CONF_POSTCODE, DOMAIN
 

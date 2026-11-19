@@ -1,11 +1,11 @@
 """Tests for the Postcodeloterij setup/unload entry points."""
+
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import aiohttp
+from homeassistant.config_entries import ConfigEntryState
 import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
-
-from homeassistant.config_entries import ConfigEntryState
 
 from custom_components.postcodeloterij.const import CONF_POSTCODE, DOMAIN
 

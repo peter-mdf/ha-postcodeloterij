@@ -1,4 +1,5 @@
 """Constants for the Postcodeloterij integration."""
+
 from homeassistant.const import Platform
 
 DOMAIN = "postcodeloterij"

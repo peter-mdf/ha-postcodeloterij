@@ -1,6 +1,9 @@
 """Tests for PostcodeloterijCoordinator data parsing."""
+
 from unittest.mock import AsyncMock, MagicMock, patch
 
+import aiohttp
+from homeassistant.helpers.update_coordinator import UpdateFailed
 import pytest
 
 from custom_components.postcodeloterij.coordinator import (
@@ -120,9 +123,6 @@ async def test_period_is_previous_month(hass, freezer):
 
 
 async def test_api_error_raises_update_failed(hass):
-    import aiohttp
-    from homeassistant.helpers.update_coordinator import UpdateFailed
-
     coordinator = PostcodeloterijCoordinator(hass, _mock_entry())
 
     with patch(

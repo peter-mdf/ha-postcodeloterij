@@ -1,6 +1,7 @@
 {
   "domain": "postcodeloterij",
   "name": "Postcodeloterij",
+  "categories": ["local_services"],
   "codeowners": ["@peter-mdf"],
   "config_flow": true,
   "documentation": "https://github.com/peter-mdf/ha-postcodeloterij",
